@@ -19,10 +19,16 @@ jobs:
       - name: Setujui lisensi Android SDK
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
 
+      - name: Siapkan kunci tanda tangan
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/release.jks"
+
       - name: Beri izin gradlew
         run: chmod +x gradlew
 
       - name: Build debug APK
+        env:
+          KEYSTORE_PATH: ${{ runner.temp }}/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: ./gradlew assembleDebug --no-daemon
 
       - uses: actions/upload-artifact@v4
