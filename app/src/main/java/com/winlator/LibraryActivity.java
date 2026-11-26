@@ -249,7 +249,6 @@ public class LibraryActivity extends Activity {
         right.addView(menu, mp);
 
         menu.addView(menuItem("▶", "Tambah Folder Lain", true, v -> pickFolder()));
-        menu.addView(menuItem("\u2630", "Kelola Winlator", false, v -> openWinlator()));
         menu.addView(menuItem("⚙", "Pengaturan", false, v -> showSettings()));
         menu.addView(menuItem("ⓘ", "Tentang", false, v -> showAbout()));
         menu.addView(menuItem("✕", "Keluar", false, v -> finish()));
@@ -282,7 +281,7 @@ public class LibraryActivity extends Activity {
         if (status != null && adapter != null) {
             if (systemReady()) refresh();
             else if (!hasStoragePermission()) status.setText("Izin penyimpanan belum diberikan");
-            else status.setText("Sistem belum terpasang: buka Kelola Winlator sekali");
+            else status.setText("Sistem belum terpasang: Pengaturan, lalu Kelola Winlator");
         }
     }
 
@@ -398,12 +397,14 @@ public class LibraryActivity extends Activity {
         showDark(darkBuilder()
                 .setTitle("Pengaturan")
                 .setItems(new String[]{"Pindai ulang", "Pilih container",
-                                "Hapus semua cover"},
+                                "Hapus semua cover", "Kelola Winlator (lanjutan)"},
                         (d, which) -> {
                             if (which == 0) {
                                 refresh();
                             } else if (which == 1) {
                                 showContainerPicker();
+                            } else if (which == 3) {
+                                openWinlator();
                             } else {
                                 File[] files = getFilesDir().listFiles();
                                 if (files != null) {
@@ -421,7 +422,7 @@ public class LibraryActivity extends Activity {
     private void showAbout() {
         showDark(darkBuilder()
                 .setTitle("EXE Emulator")
-                .setMessage("Pustaka game PC berbasis Winlator.\nVersi 0.5")
+                .setMessage("Pustaka game PC berbasis Winlator.\nVersi 0.6")
                 .setPositiveButton("OK", null));
     }
 
