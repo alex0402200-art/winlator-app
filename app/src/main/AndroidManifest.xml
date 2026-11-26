@@ -28,6 +28,14 @@
             android:theme="@style/AppThemeDark"
             android:exported="true"
             android:screenOrientation="sensor"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation" />
+
+        <activity android:name="com.winlator.LibraryActivity"
+            android:label="EXE Emulator"
+            android:theme="@android:style/Theme.Material.NoActionBar"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="adjustPan"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
