@@ -12,8 +12,23 @@ android {
         versionName "11.2"
     }
 
+    signingConfigs {
+        fixed {
+            def ksPath = System.getenv("KEYSTORE_PATH")
+            if (ksPath != null) {
+                storeFile file(ksPath)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias "gamelib"
+                keyPassword System.getenv("KEYSTORE_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         debug {
+            if (System.getenv("KEYSTORE_PATH") != null) {
+                signingConfig signingConfigs.fixed
+            }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
@@ -46,4 +61,5 @@ dependencies {
     implementation 'org.tukaani:xz:1.12'
     implementation 'org.apache.commons:commons-compress:1.28.0'
     implementation 'androidx.lifecycle:lifecycle-process:2.5.1'
+    implementation 'androidx.documentfile:documentfile:1.0.1'
 }
